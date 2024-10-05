@@ -17,22 +17,8 @@ export default class SkyHighBuilding extends Building {
     return this._floors;
   }
 
-  set floors(floors) {
-    if (typeof (floors) !== 'number') {
-      throw new TypeError('Floor must be a number');
-    }
-    this._floors = floors;
-  }
-
   get sqrt() {
     return this._sqrt;
-  }
-
-  set sqrt(sqrt) {
-    if (typeof (sqrt) !== 'number') {
-      throw new TypeError('Sqrt must be a number');
-    }
-    this._sqrt = sqrt;
   }
 
   evacuationWarningMessage() {
