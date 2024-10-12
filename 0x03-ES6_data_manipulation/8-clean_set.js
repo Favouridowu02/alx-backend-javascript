@@ -1,10 +1,10 @@
 export default function cleanSet(set, startString) {
   let joinstring = '';
   for (const value of set) {
-    if (value.startsWith(startString)) {
-      if (startString !== '' && joinstring === '') {
+    if (startString !== '' && value.startsWith(startString)) {
+      if (joinstring === '') {
         joinstring = joinstring.concat(value.replace(startString, ''));
-      } else if (startString !== '') {
+      } else {
         joinstring = joinstring.concat('-', value.replace(startString, ''));
       }
     }
