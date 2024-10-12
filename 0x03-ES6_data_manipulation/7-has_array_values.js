@@ -3,9 +3,10 @@ export default function hasValuesFromArray(set, arr = []) {
   if (arr.length > 0) {
     arr.forEach((element) => {
       if (set.has(element) === false) {
-        return false;
+        status = false;
+      } else {
+        status = true;
       }
-      status = true;
       return null;
     });
   }
