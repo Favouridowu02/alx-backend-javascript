@@ -26,3 +26,8 @@ const teacher3: Teacher = {
   // fullTimeEmployee: false
   // lastName: "Doe"
   // location: "London"
+
+
+  interface Directors extends Teacher {
+    numberOfReports: number;
+  }
