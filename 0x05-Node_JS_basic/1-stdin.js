@@ -1,13 +1,12 @@
-export default function Print() {
-    console.log('Welcome to Holberton School, what is your name?');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-    userName = process.stdin();
-
+process.stdin.setEncoding('utf-8');
+process.stdin.on('readable', function() {
+    const userName = process.stdin.read();
     if (userName) {
-        console.log(`Your name is: ${userName}`);
-        console.log('This important software is now closing');
+        process.stdout.write(`Your name is: ${userName}`);
     }
-    else {
-        console.log('')
-    }
-}
+});
+process.stdin.on('end', function() {
+    process.stdout.write('This important software is now closing');
+})
