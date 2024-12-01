@@ -1,44 +1,42 @@
 const { readFile } = require('fs');
-const { setDefaultHighWaterMark } = require('stream');
-const { fileURLToPath } = require('url');
 
 function countStudents(path) {
-    const students = {};
-    const fields = {};
-    let length = 0;
-    return new Promise((resolve, reject) => {
-        readFile(path, (error, data) => {
-            if (error) {
-                reject(Error('Cannnot load the database'));
+  const students = {};
+  const fields = {};
+  let length = 0;
+  return new Promise((resolve, reject) => {
+    readFile(path, (error, data) => {
+      if (error) {
+        reject(Error('Cannnot load the database'));
+      } else {
+        const lines = data.toString().split('\n');
+        for (let i = 0; i < lines.length; i += 1) {
+          if (lines[i]) {
+            length += 1;
+            const field = lines[i].toString().replace('\r', '').split(',');
+            if (Object.prototype.hasOwnProperty.call(students, fields)) {
+              students[field[3]].push(field[0]);
             } else {
-                const lines = data.toString().split('\n');
-                for (let i = 0; i < lines.length; i++) {
-                    if (lines[i]) {
-                        length++;
-                        const field = lines[i].toString().replace('\r', '').split(',');
-                        if (Object.prototype.hasOwnProperty.call(students, fields)) {
-                            students[field[3]].push(field[0]);
-                        } else {
-                            students[field[3]] = [field[0]];
-                        }
-                        if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
-                            fields[field[3]]++;
-                        } else {
-                            fields[field[3]] = 1;
-                        }
-                    }
-                }
-                const a = length - 1;
-                console.log(`Number of students: ${a}`);
-                for (const [key, val] of Object.entries(fields)) {
-                    if (key !== 'field') {
-                        console.log(`Number of students in ${key}: ${val}. List ${students[key].join(', ')}`);
-                    }
-                }
-                resolve(data);
+              students[field[3]] = [field[0]];
             }
-        });
+            if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
+              fields[field[3]] += 1;
+            } else {
+              fields[field[3]] = 1;
+            }
+          }
+        }
+        const a = length - 1;
+        console.log(`Number of students: ${a}`);
+        for (const [key, val] of Object.entries(fields)) {
+          if (key !== 'field') {
+            console.log(`Number of students in ${key}: ${val}. List ${students[key].join(', ')}`);
+          }
+        }
+        resolve(data);
+      }
     });
+  });
 }
 
 module.exports = countStudents;
