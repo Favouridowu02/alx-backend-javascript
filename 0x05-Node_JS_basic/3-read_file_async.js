@@ -14,8 +14,8 @@ function countStudents(path) {
           if (lines[i]) {
             length += 1;
             const field = lines[i].toString().replace('\r', '').split(',');
-            if (Object.prototype.hasOwnProperty.call(students, fields)) {
-              students[field[3]].push(field[0]);
+            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
+                students[field[3]].push(field[0]);
             } else {
               students[field[3]] = [field[0]];
             }
