@@ -55,6 +55,8 @@ app.get('/students', (req, res) => {
     const print = output;
     console.log(print);
     res.end(print);
+  }).catch(() => {
+    res.end('Cannot load the database');
   });
 });
 app.listen(port, () => {
